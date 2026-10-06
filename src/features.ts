@@ -30,9 +30,10 @@ const numberOr = (value: number | undefined, fallback: number): number =>
 export function buildFeatureRow(observation: FeatureObservation): FeatureRow {
   const date = new Date(observation.observedAt);
   if (Number.isNaN(date.valueOf())) throw new Error("observedAt must be a valid ISO date");
+  const localHour = Number(observation.observedAt.match(/T(\d{2}):/)?.[1] ?? date.getHours());
   const weather = observation.weather ?? {};
   return {
-    hour: date.getHours(),
+    hour: localHour,
     dayOfWeek: date.getDay(),
     temperatureC: numberOr(weather.temperatureC, 0),
     apparentTemperatureC: numberOr(weather.apparentTemperatureC, numberOr(weather.temperatureC, 0)),
