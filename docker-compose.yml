@@ -1,0 +1,22 @@
+services:
+  api:
+    image: node:22-bookworm
+    working_dir: /app
+    volumes:
+      - .:/app
+      - outside_node_modules:/app/node_modules
+    command: sh -c "npm install && npm run dev"
+    ports:
+      - "8787:8787"
+    environment:
+      DATABASE_PATH: /app/data/outside-window.db
+      OLLAMA_BASE_URL: http://ollama:11434
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama:/root/.ollama
+volumes:
+  outside_node_modules:
+  ollama:

@@ -1,0 +1,4 @@
+fastapi==0.115.11
+uvicorn[standard]==0.34.0
+scikit-learn==1.6.1
+tabpfn==2.0.7
